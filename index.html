@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academia Maromba | Nova Brasília, Imbituba - SC</title>
+<meta name="description" content="Academia Maromba em Nova Brasília, Imbituba - SC. Treino de verdade, estrutura completa e ambiente motivador. Avaliação 4,9 com mais de 60 avaliações. Venha treinar.">
+<meta property="og:title" content="Academia Maromba | Imbituba - SC">
+<meta property="og:description" content="Seu limite é apenas o começo. Treine na Academia Maromba, em Nova Brasília, Imbituba - SC.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+     CONFIGURAÇÃO DO LOGIN COM GOOGLE (Supabase Auth)
+     Preencha os dois valores abaixo com os dados do SEU projeto
+     Supabase. Nunca coloque aqui a service_role key nem senhas —
+     apenas a URL do projeto e a chave "anon public".
+     Veja CONFIGURACAO-LOGIN-GOOGLE.md para o passo a passo.
+============================================================= -->
+<script>
+  window.MAROMBA_CONFIG = {
+    SUPABASE_URL: "https://SEU-PROJETO.supabase.co",   // TODO: substituir
+    SUPABASE_ANON_KEY: "SUA_CHAVE_ANON_PUBLICA_AQUI"    // TODO: substituir
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<style>
+  :root{
+    --black:#0a0b09;
+    --black-2:#121310;
+    --charcoal:#1a1c15;
+    --line:#2b2c24;
+    --off:#efece2;
+    --grey:#9b9686;
+    --emerald:#4f7a5c;
+    --emerald-dim:#2c4633;
+    --emerald-glow: rgba(79,122,92,0.32);
+    --emerald-bright:#8ab89a;
+    --copper:#c98a52;
+    --copper-dim:#7a5230;
+    --copper-glow: rgba(201,138,82,0.28);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--off);
+    font-family:'Manrope', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--emerald);color:#000;}
+  .display{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    line-height:0.95;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{
+    width:100%;
+    max-width:1240px;
+    margin:0 auto;
+    padding:0 clamp(20px,5vw,64px);
+  }
+  .eyebrow{
+    font-size:0.78rem;
+    color:var(--emerald-bright);
+    font-weight:700;
+    letter-spacing:0.14em;
+    margin-bottom:14px;
+  }
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--black);}
+  ::-webkit-scrollbar-thumb{background:var(--emerald-dim);border-radius:10px;}
+
+  /* grain overlay */
+  .grain{
+    position:fixed;inset:0;
+    pointer-events:none;
+    z-index:999;
+    opacity:0.05;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;
+    z-index:500;
+    padding:22px 0;
+    transition:background .4s ease, padding .4s ease, border-color .4s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{
+    background:rgba(7,8,10,0.85);
+    backdrop-filter:blur(14px) saturate(140%);
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px);
+  }
+  .logo-mark{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Anton',sans-serif;
+    font-size:1.15rem;
+    letter-spacing:0.03em;
+    color:var(--off);
+  }
+  .logo-mark span{color:var(--emerald-bright);}
+  .logo-badge{
+    width:34px;height:34px;border-radius:50%;
+    border:1.5px solid var(--emerald-bright);
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.7rem;font-weight:800;color:var(--emerald-bright);
+    box-shadow:0 0 14px var(--emerald-glow);
+  }
+  nav.desktop-nav{display:flex;gap:34px;}
+  nav.desktop-nav a{
+    font-size:0.86rem;font-weight:600;color:var(--grey);
+    position:relative;padding:4px 0;
+    transition:color .25s ease;
+  }
+  nav.desktop-nav a:hover{color:var(--off);}
+  nav.desktop-nav a::after{
+    content:'';position:absolute;left:0;bottom:-2px;
+    width:0;height:1.5px;background:var(--emerald);
+    transition:width .3s ease;
+  }
+  nav.desktop-nav a:hover::after{width:100%;}
+  .header-cta{
+    font-size:0.82rem;font-weight:700;
+    padding:11px 22px;border-radius:2px;
+    background:var(--copper);color:#1a0f05;
+    box-shadow:0 0 0 1px var(--copper);
+    transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
+  }
+  .header-cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px var(--copper-glow);}
+  .burger{
+    display:none;flex-direction:column;gap:5px;
+    width:26px;cursor:pointer;background:none;border:none;padding:0;
+  }
+  .burger span{height:2px;background:var(--off);width:100%;transition:.3s;}
+
+  /* ---------- AUTH WIDGET (login com Google) ---------- */
+  .auth-widget{position:relative;display:flex;align-items:center;}
+  .btn-google{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:10px 18px;border-radius:2px;
+    background:transparent;border:1px solid var(--line);color:var(--off);
+    font-family:'Manrope',sans-serif;font-weight:700;font-size:0.8rem;
+    cursor:pointer;white-space:nowrap;
+    transition:border-color .25s ease,color .25s ease,transform .25s ease;
+  }
+  .btn-google:hover{border-color:var(--emerald-bright);color:var(--emerald-bright);transform:translateY(-2px);}
+  .btn-google svg{width:16px;height:16px;flex-shrink:0;}
+  .btn-google[disabled]{opacity:0.5;cursor:default;transform:none;}
+  .user-chip{
+    display:flex;align-items:center;gap:9px;
+    padding:5px 14px 5px 5px;border:1px solid var(--line);border-radius:30px;
+    background:rgba(255,255,255,0.02);cursor:pointer;
+    transition:border-color .25s ease;
+  }
+  .user-chip:hover{border-color:var(--emerald-bright);}
+  .user-chip img{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--emerald-bright);object-fit:cover;}
+  .user-chip .chip-fallback{
+    width:28px;height:28px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--emerald-dim);color:var(--emerald-bright);
+    font-size:0.72rem;font-weight:800;
+  }
+  .user-chip span{
+    font-size:0.8rem;font-weight:700;color:var(--off);
+    max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .user-menu{
+    position:absolute;top:calc(100% + 10px);right:0;min-width:170px;
+    background:var(--charcoal);border:1px solid var(--line);border-radius:6px;
+    padding:6px;box-shadow:0 20px 40px -12px rgba(0,0,0,0.6);
+    opacity:0;visibility:hidden;transform:translateY(-8px);
+    transition:opacity .2s ease,transform .2s ease,visibility .2s ease;
+    z-index:50;
+  }
+  .user-menu.open{opacity:1;visibility:visible;transform:translateY(0);}
+  .user-menu button{
+    width:100%;text-align:left;padding:10px 12px;border-radius:4px;
+    background:none;border:none;color:var(--off);
+    font-family:'Manrope',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;
+  }
+  .user-menu button:hover{background:rgba(255,255,255,0.05);color:var(--emerald-bright);}
+  .auth-widget-mobile{margin-top:26px;}
+  .auth-widget-mobile .btn-google{width:100%;justify-content:center;padding:14px;}
+  .auth-widget-mobile .user-chip{width:100%;justify-content:space-between;padding:10px 14px;border-radius:4px;}
+  .auth-widget-mobile .user-menu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:none;background:none;padding:10px 0 0;display:none;}
+  .auth-widget-mobile .user-menu.open{display:block;}
+  .auth-widget-mobile .user-menu button{border:1px solid var(--line);border-radius:4px;text-align:center;}
+  @media(max-width:860px){ header .auth-widget{display:none;} }
+
+  .mobile-nav{
+    position:fixed;inset:0;background:var(--black);
+    z-index:600;
+    display:flex;flex-direction:column;
+    justify-content:center;
+    padding:0 32px;
+    transform:translateY(-100%);
+    transition:transform .5s cubic-bezier(.77,0,.18,1);
+  }
+  .mobile-nav.open{transform:translateY(0);}
+  .mobile-nav a{
+    font-family:'Anton',sans-serif;
+    font-size:2.1rem;padding:12px 0;
+    border-bottom:1px solid var(--line);
+    color:var(--off);
+  }
+  .mobile-close{
+    position:absolute;top:24px;right:28px;
+    font-size:1.8rem;background:none;border:none;color:var(--off);cursor:pointer;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 90% 60% at 30% 0%, rgba(62,240,122,0.12), transparent 60%),
+      linear-gradient(180deg, #07080a 0%, #0a0c08 55%, #07080a 100%);
+    padding-bottom:110px;
+  }
+  .hero::after{
+    content:'';position:absolute;left:0;right:0;bottom:0;height:220px;
+    background:linear-gradient(180deg, transparent, var(--black) 92%);
+    pointer-events:none;
+  }
+  .hero-fx{
+    position:absolute;inset:0;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 90px);
+    opacity:0.5;
+  }
+  .hero-glow{
+    position:absolute;
+    width:120vw;height:120vw;
+    left:50%;top:-40%;
+    transform:translateX(-50%);
+    background:radial-gradient(circle, var(--emerald-glow) 0%, transparent 55%);
+    opacity:0.35;
+    filter:blur(30px);
+    pointer-events:none;
+  }
+  .hero-mark{
+    position:absolute;
+    right:-6%;top:8%;
+    width:min(58vw,620px);
+    opacity:0.14;
+    filter:drop-shadow(0 0 40px var(--emerald-glow));
+    pointer-events:none;
+  }
+  .hero-content{
+    position:relative;z-index:2;
+    max-width:1240px;width:100%;margin:0 auto;
+    padding:0 clamp(20px,5vw,64px);
+  }
+  .hero-h1{
+    font-size:clamp(2.6rem, 8.4vw, 6.4rem);
+    color:var(--off);
+    text-transform:uppercase;
+    max-width:15ch;
+  }
+  .hero-h1 em{
+    font-style:normal;color:var(--emerald-bright);
+    text-shadow:0 0 30px var(--emerald-glow);
+  }
+  .line-mask{display:block;overflow:hidden;padding-bottom:0.05em;}
+  .line-inner{display:block;transform:translateY(112%);}
+  .hero-fx-item{opacity:0;transform:translateY(24px);}
+  .hero p.lead{
+    margin-top:24px;
+    max-width:46ch;
+    font-size:clamp(1rem,1.6vw,1.18rem);
+    color:var(--grey);
+    line-height:1.6;
+  }
+  .hero-actions{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin-top:38px;
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:16px 30px;
+    font-weight:700;font-size:0.92rem;
+    border-radius:2px;
+    cursor:pointer;border:none;
+    transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease, background .3s ease;
+  }
+  .btn-solid{
+    background:var(--copper);color:#1a0f05;
+    box-shadow:0 0 0 1px var(--copper);
+    will-change:transform;
+  }
+  .btn-solid:hover{transform:translateY(-3px);box-shadow:0 14px 30px -8px var(--copper-glow);}
+  .btn-outline{
+    background:transparent;color:var(--off);
+    border:1px solid var(--line);
+    will-change:transform;
+  }
+  .btn-outline:hover{border-color:var(--emerald-bright);color:var(--emerald-bright);transform:translateY(-3px);}
+  .scroll-cue{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    color:var(--grey);font-size:0.72rem;letter-spacing:0.12em;
+    z-index:2;
+  }
+  .scroll-cue .line{
+    width:1px;height:38px;background:linear-gradient(var(--emerald), transparent);
+    animation:scrolldown 1.8s ease-in-out infinite;
+  }
+  @keyframes scrolldown{
+    0%{transform:scaleY(0);transform-origin:top;}
+    50%{transform:scaleY(1);transform-origin:top;}
+    50.01%{transform-origin:bottom;}
+    100%{transform:scaleY(0);transform-origin:bottom;}
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{
+    opacity:0;transform:translateY(34px);filter:blur(6px);
+    transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1), filter .9s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in{opacity:1;transform:translateY(0);filter:blur(0);}
+  .reveal-delay-1.in{transition-delay:.1s;}
+  .reveal-delay-2.in{transition-delay:.2s;}
+  .reveal-delay-3.in{transition-delay:.3s;}
+
+  section{position:relative;padding:120px 0;}
+  .section-tight{padding:90px 0;}
+
+  h2.section-title{
+    font-size:clamp(2.1rem,5vw,3.6rem);
+    text-transform:uppercase;
+    max-width:14ch;
+    color:var(--off);
+  }
+  h2.section-title span{color:var(--emerald-bright);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;grid-template-columns:1.05fr 0.95fr;
+    gap:60px;align-items:center;margin-top:56px;
+  }
+  .about-visual{
+    position:relative;aspect-ratio:4/5;
+    border:1px solid var(--line);
+    background:
+      linear-gradient(160deg, #101410 0%, #07080a 70%),
+      repeating-linear-gradient(45deg, rgba(62,240,122,0.05) 0 2px, transparent 2px 26px);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .about-visual::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at 30% 20%, var(--emerald-glow), transparent 55%);
+    opacity:0.4;
+  }
+  .about-visual .mark{width:46%;opacity:0.85;filter:drop-shadow(0 0 26px var(--emerald-glow));}
+  .about-copy p{
+    color:var(--grey);font-size:1.05rem;line-height:1.75;
+    max-width:52ch;margin-top:20px;
+  }
+  .stat-row{
+    display:flex;gap:40px;margin-top:44px;flex-wrap:wrap;
+  }
+  .stat{border-left:2px solid var(--emerald-bright);padding-left:16px;}
+  .stat:nth-child(2){border-left-color:var(--copper);}
+  .stat .num{font-family:'Anton',sans-serif;font-size:2.4rem;color:var(--off);}
+  .stat .label{font-size:0.8rem;color:var(--grey);margin-top:2px;}
+
+  /* ---------- DIFERENCIAIS ---------- */
+  .diff-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    gap:1px;background:var(--line);
+    margin-top:56px;border:1px solid var(--line);
+  }
+  .diff-card{
+    background:var(--black-2);
+    padding:38px 28px;
+    transition:background .35s ease, transform .35s ease;
+    position:relative;overflow:hidden;
+  }
+  .diff-card::before{
+    content:'';position:absolute;left:0;top:0;height:2px;width:0;
+    background:var(--emerald-bright);transition:width .4s ease;
+  }
+  .diff-card:nth-child(2n)::before{background:var(--copper);}
+  .diff-card:hover{background:#111511;transform:translateY(-6px);}
+  .diff-card:hover::before{width:100%;}
+  .diff-icon{font-size:1.7rem;margin-bottom:22px;display:block;}
+  .diff-card h3{
+    font-family:'Anton',sans-serif;font-size:1.15rem;
+    text-transform:uppercase;letter-spacing:0.02em;margin-bottom:10px;
+  }
+  .diff-card p{color:var(--grey);font-size:0.92rem;line-height:1.6;}
+
+  /* ---------- CINEMATIC WORDS ---------- */
+  .cine{
+    background:#050605;
+    padding:0;
+  }
+  .cine-word{
+    min-height:70vh;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .cine-word h3{
+    font-size:clamp(3rem,13vw,9rem);
+    text-transform:uppercase;color:#1c231c;
+    letter-spacing:0.02em;
+    filter:blur(10px);
+    transform:scale(0.88);
+    opacity:0.25;
+    will-change:transform,filter,opacity;
+  }
+  .cine-word.in h3{
+    color:var(--off);
+    text-shadow:0 0 60px var(--emerald-glow);
+  }
+  .cine-word:nth-child(3).in h3{text-shadow:0 0 60px var(--copper-glow);}
+  .cine-final{
+    min-height:80vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;gap:10px;
+    background:radial-gradient(ellipse at 50% 50%, rgba(62,240,122,0.1), transparent 65%);
+  }
+  .cine-final h3{
+    font-size:clamp(2.1rem,6vw,4.2rem);
+    text-transform:uppercase;max-width:16ch;color:var(--off);
+  }
+  .cine-final h3 span{color:var(--emerald-bright);}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-auto-rows:220px;
+    gap:2px;margin-top:56px;
+  }
+  .gallery-item{
+    position:relative;overflow:hidden;
+    background:linear-gradient(150deg,#12160f,#07080a);
+    display:flex;align-items:flex-end;
+    border:1px solid var(--line);
+    clip-path:inset(0 0 100% 0);
+    transform:scale(1.12);
+    transition:clip-path 1.1s cubic-bezier(.16,.84,.24,1), transform 1.4s cubic-bezier(.16,.84,.24,1), border-color .3s ease;
+  }
+  .gallery-item.in-view{clip-path:inset(0 0 0 0);transform:scale(1);}
+  .gallery-item.tall{grid-row:span 2;}
+  .gallery-item::before{
+    content:'';position:absolute;inset:0;
+    background:repeating-linear-gradient(60deg, rgba(62,240,122,0.05) 0 2px, transparent 2px 30px);
+  }
+  .gallery-item .g-caption{
+    position:relative;z-index:2;padding:18px;
+    font-size:0.78rem;color:var(--grey);
+    display:flex;justify-content:space-between;width:100%;
+    opacity:0;transform:translateY(10px);
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .gallery-item:hover .g-caption{opacity:1;transform:translateY(0);}
+  .gallery-item:hover{border-color:var(--emerald-bright);}
+  .g-caption .g-num{color:var(--copper);font-weight:700;}
+
+  /* ---------- HORARIOS ---------- */
+  .hours-panel{
+    margin-top:56px;
+    border:1px solid var(--line);
+    background:var(--black-2);
+  }
+  .hours-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:20px 30px;border-bottom:1px solid var(--line);
+    font-size:1rem;
+  }
+  .hours-row:last-child{border-bottom:none;}
+  .hours-row .day{color:var(--off);font-weight:700;}
+  .hours-row .time{color:var(--grey);}
+  .status-pill{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:0.78rem;font-weight:700;padding:6px 14px;
+    border:1px solid var(--line);border-radius:20px;color:var(--grey);
+    margin-bottom:20px;
+  }
+  .status-pill .dot{width:7px;height:7px;border-radius:50%;background:#e2472f;}
+
+  /* ---------- PLANOS ---------- */
+  .plans-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:56px;
+  }
+  .plan-card{
+    border:1px solid var(--line);padding:34px;background:var(--black-2);
+    position:relative;
+  }
+  .plan-card .plan-tag{
+    display:inline-block;font-size:0.72rem;font-weight:800;letter-spacing:0.1em;
+    color:#1a0f05;background:var(--copper);padding:5px 12px;margin-bottom:22px;
+  }
+  .plan-card:nth-child(2) .plan-tag{background:var(--emerald-bright);color:#0a1a0f;}
+  .plan-line{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:14px 0;border-bottom:1px solid var(--line);gap:10px;
+  }
+  .plan-line:last-of-type{border-bottom:none;}
+  .plan-line .plan-desc{color:var(--grey);font-size:0.92rem;}
+  .plan-line .plan-price{font-family:'Anton',sans-serif;color:var(--off);font-size:1.25rem;white-space:nowrap;}
+  .plan-note{margin-top:20px;font-size:0.82rem;color:var(--grey);}
+
+  /* ---------- TREINOS ---------- */
+  .goals-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);margin-top:56px;
+  }
+  .goal-card{
+    background:var(--black-2);padding:44px 24px;text-align:left;
+    transition:background .3s ease;
+  }
+  .goal-card:hover{background:#111511;}
+  .goal-card .g-icon{font-size:1.8rem;}
+  .goal-card h4{
+    font-family:'Anton',sans-serif;font-size:1.1rem;
+    text-transform:uppercase;margin:18px 0 10px;
+  }
+  .goal-card p{color:var(--grey);font-size:0.88rem;line-height:1.55;}
+
+  /* ---------- REVIEWS ---------- */
+  .reviews-top{display:flex;align-items:baseline;gap:18px;margin-top:26px;flex-wrap:wrap;}
+  .reviews-score{font-family:'Anton',sans-serif;font-size:4.4rem;color:var(--emerald-bright);text-shadow:0 0 30px var(--emerald-glow);}
+  .reviews-meta{color:var(--grey);font-size:0.95rem;}
+  .stars{color:var(--copper);letter-spacing:2px;font-size:1.1rem;}
+  .testi-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;
+  }
+  .testi-card{
+    border:1px dashed var(--line);padding:30px;
+    color:var(--grey);font-size:0.9rem;line-height:1.6;
+    display:flex;flex-direction:column;justify-content:space-between;min-height:170px;
+  }
+  .testi-card .soon{
+    font-size:0.72rem;color:var(--copper);font-weight:700;letter-spacing:0.08em;
+    margin-top:20px;
+  }
+
+  /* ---------- INSTAGRAM ---------- */
+  .insta-wrap{
+    display:flex;justify-content:space-between;align-items:center;
+    flex-wrap:wrap;gap:24px;margin-top:40px;
+  }
+  .insta-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:40px;
+  }
+  .insta-item{
+    aspect-ratio:1;background:linear-gradient(150deg,#12160f,#07080a);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--line);font-size:1.4rem;
+  }
+
+  /* ---------- LOCATION ---------- */
+  .loc-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:56px;align-items:center;
+  }
+  .loc-map{
+    aspect-ratio:4/3;border:1px solid var(--line);
+    background:
+      linear-gradient(160deg,#101410,#07080a),
+      repeating-linear-gradient(0deg, rgba(62,240,122,0.05) 0 1px, transparent 1px 40px),
+      repeating-linear-gradient(90deg, rgba(62,240,122,0.05) 0 1px, transparent 1px 40px);
+    position:relative;display:flex;align-items:center;justify-content:center;
+  }
+  .loc-map .pin{
+    width:16px;height:16px;border-radius:50% 50% 50% 0;
+    background:var(--copper);transform:rotate(-45deg);
+    box-shadow:0 0 24px var(--emerald-glow);
+  }
+  .loc-info p{color:var(--grey);line-height:1.8;margin-bottom:26px;font-size:1.02rem;}
+  .loc-info .addr{color:var(--off);font-weight:700;}
+  .loc-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;}
+
+  /* ---------- FINAL CTA ---------- */
+  .final-cta{
+    text-align:center;padding:150px 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 30%, var(--emerald-glow), transparent 65%),
+      var(--black);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .final-cta h2{
+    font-size:clamp(2.2rem,6.5vw,4.6rem);text-transform:uppercase;
+    max-width:18ch;margin:0 auto;
+  }
+  .final-cta p{color:var(--grey);max-width:48ch;margin:22px auto 0;font-size:1.05rem;}
+  .final-cta .btn{margin-top:40px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:60px 0 30px;}
+  .foot-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;
+    padding-bottom:40px;border-bottom:1px solid var(--line);
+  }
+  footer h5{font-size:0.78rem;letter-spacing:0.1em;color:var(--grey);margin-bottom:18px;}
+  footer a.flink{display:block;color:var(--off);font-size:0.92rem;padding:6px 0;transition:color .25s;}
+  footer a.flink:hover{color:var(--emerald-bright);}
+  .foot-bottom{
+    display:flex;justify-content:space-between;padding-top:26px;
+    font-size:0.8rem;color:var(--grey);flex-wrap:wrap;gap:10px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    nav.desktop-nav,.header-cta{display:none;}
+    .burger{display:flex;}
+    .about-grid{grid-template-columns:1fr;}
+    .diff-grid{grid-template-columns:repeat(2,1fr);}
+    .goals-grid{grid-template-columns:repeat(2,1fr);}
+    .gallery{grid-template-columns:repeat(2,1fr);}
+    .plans-grid{grid-template-columns:1fr;}
+    .loc-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;gap:26px;}
+    .insta-grid{grid-template-columns:repeat(2,1fr);}
+    section{padding:80px 0;}
+    .testi-grid{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+    .reveal{opacity:1;transform:none;filter:none;}
+    .line-inner{transform:none !important;}
+    .hero-fx-item{opacity:1 !important;transform:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="header-inner">
+    <a href="#inicio" class="logo-mark">
+      <span class="logo-badge">M</span>
+      ACADEMIA <span>MAROMBA</span>
+    </a>
+    <nav class="desktop-nav">
+      <a href="#inicio">Início</a>
+      <a href="#academia">Academia</a>
+      <a href="#estrutura">Estrutura</a>
+      <a href="#treinos">Treinos</a>
+      <a href="#horarios">Horários</a>
+      <a href="#localizacao">Localização</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="auth-widget" data-auth-widget></div>
+    <a href="#contato" class="header-cta magnetic">Começar Agora</a>
+    <button class="burger" id="burgerBtn" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" id="mobileClose" aria-label="Fechar menu">&times;</button>
+  <a href="#inicio">Início</a>
+  <a href="#academia">Academia</a>
+  <a href="#estrutura">Estrutura</a>
+  <a href="#treinos">Treinos</a>
+  <a href="#horarios">Horários</a>
+  <a href="#localizacao">Localização</a>
+  <a href="#contato">Contato</a>
+  <div class="auth-widget auth-widget-mobile" data-auth-widget></div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-glow"></div>
+  <div class="hero-fx"></div>
+  <svg class="hero-mark" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="96" stroke="#3ef07a" stroke-width="1"/>
+    <path d="M60 130 Q70 90 100 90 Q130 90 140 60" stroke="#3ef07a" stroke-width="2" fill="none"/>
+    <circle cx="100" cy="90" r="22" stroke="#3ef07a" stroke-width="2" fill="none"/>
+  </svg>
+  <div class="hero-content">
+    <h1 class="display hero-h1">
+      <span class="line-mask"><span class="line-inner">SEU LIMITE É</span></span>
+      <span class="line-mask"><span class="line-inner">APENAS <em>O COMEÇO.</em></span></span>
+    </h1>
+    <p class="lead hero-fx-item">Treine. Evolua. Supere-se. Na Academia Maromba, cada treino é um passo em direção à sua melhor versão.</p>
+    <div class="hero-actions hero-fx-item">
+      <a href="#contato" class="btn btn-solid magnetic">Começar Agora</a>
+      <a href="#academia" class="btn btn-outline magnetic">Conheça a Academia</a>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>ROLE PARA EXPLORAR</span>
+    <span class="line"></span>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="academia">
+  <div class="wrap">
+    <div class="eyebrow reveal">SOBRE A MAROMBA</div>
+    <h2 class="section-title reveal">ONDE A <span>EVOLUÇÃO</span> ACONTECE.</h2>
+
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <svg class="mark" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="96" stroke="#3ef07a" stroke-width="1.5"/>
+          <path d="M55 135 Q68 92 100 92 Q135 92 145 55" stroke="#3ef07a" stroke-width="3" fill="none"/>
+          <circle cx="100" cy="90" r="24" stroke="#3ef07a" stroke-width="3" fill="none"/>
+          <path d="M60 150 L145 150" stroke="#3ef07a" stroke-width="2" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="about-copy">
+        <p class="reveal reveal-delay-1">A Academia Maromba é um espaço dedicado para quem busca evolução, saúde, força e transformação. Aqui, cada treino representa um novo desafio e uma nova oportunidade para superar seus próprios limites.</p>
+        <div class="stat-row">
+          <div class="stat reveal reveal-delay-1">
+            <div class="num" data-count-to="4.9" data-decimals="1">0,0</div>
+            <div class="label">⭐ de avaliação</div>
+          </div>
+          <div class="stat reveal reveal-delay-2">
+            <div class="num" data-count-to="60" data-suffix="+">0</div>
+            <div class="label">👥 avaliações</div>
+          </div>
+          <div class="stat reveal reveal-delay-3">
+            <div class="num">SC</div>
+            <div class="label">📍 Nova Brasília, Imbituba</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="section-tight">
+  <div class="wrap">
+    <div class="eyebrow reveal">POR QUE A MAROMBA</div>
+    <h2 class="section-title reveal">NOSSOS <span>DIFERENCIAIS</span></h2>
+  </div>
+  <div class="wrap">
+    <div class="diff-grid">
+      <div class="diff-card reveal">
+        <span class="diff-icon">💪</span>
+        <h3>Treino de Verdade</h3>
+        <p>Estrutura preparada para quem busca resultados de verdade, sem enrolação.</p>
+      </div>
+      <div class="diff-card reveal reveal-delay-1">
+        <span class="diff-icon">🔥</span>
+        <h3>Ambiente Motivador</h3>
+        <p>Um espaço onde energia e disciplina fazem parte da rotina de todo mundo.</p>
+      </div>
+      <div class="diff-card reveal reveal-delay-2">
+        <span class="diff-icon">🏋️</span>
+        <h3>Estrutura Completa</h3>
+        <p>Equipamentos e ambiente preparados para diferentes objetivos de treino.</p>
+      </div>
+      <div class="diff-card reveal reveal-delay-3">
+        <span class="diff-icon">🚀</span>
+        <h3>Evolução Constante</h3>
+        <p>Cada treino é uma oportunidade real para ir além do seu limite anterior.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CINEMATOGRÁFICA -->
+<div class="cine">
+  <div class="cine-word"><h3 class="display">DISCIPLINA.</h3></div>
+  <div class="cine-word"><h3 class="display">FOCO.</h3></div>
+  <div class="cine-word"><h3 class="display">FORÇA.</h3></div>
+  <div class="cine-word"><h3 class="display">EVOLUÇÃO.</h3></div>
+  <div class="cine-final">
+    <h3 class="display reveal">A SUA <span>MELHOR VERSÃO</span> COMEÇA AQUI.</h3>
+  </div>
+</div>
+
+<!-- ESTRUTURA -->
+<section id="estrutura">
+  <div class="wrap">
+    <div class="eyebrow reveal">CONHEÇA O ESPAÇO</div>
+    <h2 class="section-title reveal">NOSSA <span>ESTRUTURA</span></h2>
+    <div class="gallery">
+      <div class="gallery-item tall reveal"><div class="g-caption"><span>Área de musculação</span><span class="g-num">01</span></div></div>
+      <div class="gallery-item reveal reveal-delay-1"><div class="g-caption"><span>Peso livre</span><span class="g-num">02</span></div></div>
+      <div class="gallery-item reveal reveal-delay-2"><div class="g-caption"><span>Cardio</span><span class="g-num">03</span></div></div>
+      <div class="gallery-item reveal"><div class="g-caption"><span>Máquinas</span><span class="g-num">04</span></div></div>
+      <div class="gallery-item tall reveal reveal-delay-1"><div class="g-caption"><span>Fachada</span><span class="g-num">05</span></div></div>
+      <div class="gallery-item reveal reveal-delay-2"><div class="g-caption"><span>Ambiente</span><span class="g-num">06</span></div></div>
+    </div>
+    <p style="margin-top:24px;color:var(--grey);font-size:0.85rem;">* Espaços reservados para fotos oficiais da academia — substitua pelas imagens reais quando disponíveis.</p>
+  </div>
+</section>
+
+<!-- HORARIOS -->
+<section id="horarios" class="section-tight">
+  <div class="wrap">
+    <div class="eyebrow reveal">FUNCIONAMENTO</div>
+    <h2 class="section-title reveal">HORÁRIOS DE <span>FUNCIONAMENTO</span></h2>
+    <div class="status-pill reveal"><span class="dot"></span> Fechado agora · Abre às 06:00</div>
+    <div class="hours-panel reveal">
+      <div class="hours-row"><span class="day">Segunda-feira</span><span class="time">A confirmar — abre às 06:00</span></div>
+      <div class="hours-row"><span class="day">Terça-feira</span><span class="time">A confirmar — abre às 06:00</span></div>
+      <div class="hours-row"><span class="day">Quarta-feira</span><span class="time">A confirmar — abre às 06:00</span></div>
+      <div class="hours-row"><span class="day">Quinta-feira</span><span class="time">A confirmar — abre às 06:00</span></div>
+      <div class="hours-row"><span class="day">Sexta-feira</span><span class="time">A confirmar — abre às 06:00</span></div>
+      <div class="hours-row"><span class="day">Sábado</span><span class="time">A confirmar</span></div>
+      <div class="hours-row"><span class="day">Domingo</span><span class="time">A confirmar</span></div>
+    </div>
+    <p style="margin-top:18px;color:var(--grey);font-size:0.85rem;">* Confirme os horários de fechamento e o horário de sábado/domingo para completar esta seção — deixe assim marcado até termos o dado exato.</p>
+  </div>
+</section>
+
+<!-- PLANOS -->
+<section class="section-tight">
+  <div class="wrap">
+    <div class="eyebrow reveal">INVISTA EM VOCÊ</div>
+    <h2 class="section-title reveal">MENSALIDADES E <span>PLANOS</span></h2>
+    <div class="plans-grid">
+      <div class="plan-card reveal">
+        <span class="plan-tag">MENSAL</span>
+        <div class="plan-line"><span class="plan-desc">Horário livre — Seg a Sáb</span><span class="plan-price">R$160,00</span></div>
+        <div class="plan-line"><span class="plan-desc">3x na semana</span><span class="plan-price">R$150,00</span></div>
+        <div class="plan-line"><span class="plan-desc">2x na semana (10h às 16h)</span><span class="plan-price">R$79,90</span></div>
+        <div class="plan-line"><span class="plan-desc">Plano Família — livre Seg a Sex</span><span class="plan-price">R$150,00</span></div>
+        <p class="plan-note">Pagamento no dinheiro, Pix ou débito.</p>
+      </div>
+      <div class="plan-card reveal reveal-delay-1">
+        <span class="plan-tag">PLANOS PARCELADOS</span>
+        <div class="plan-line"><span class="plan-desc">Plano trimestral (3x)</span><span class="plan-price">R$135,00</span></div>
+        <div class="plan-line"><span class="plan-desc">Plano semestral (6x)</span><span class="plan-price">R$130,00</span></div>
+        <p class="plan-note">Pagamento no dinheiro, Pix, débito ou crédito.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TREINOS -->
+<section id="treinos">
+  <div class="wrap">
+    <div class="eyebrow reveal">SEU OBJETIVO, NOSSO TREINO</div>
+    <h2 class="section-title reveal">TREINE PARA O SEU <span>OBJETIVO</span></h2>
+    <div class="goals-grid">
+      <div class="goal-card reveal">
+        <span class="g-icon">🏋️</span>
+        <h4>Hipertrofia</h4>
+        <p>Foco em ganho de massa muscular com progressão consistente de carga.</p>
+      </div>
+      <div class="goal-card reveal reveal-delay-1">
+        <span class="g-icon">🔥</span>
+        <h4>Emagrecimento</h4>
+        <p>Treinos pensados para gasto calórico e condicionamento geral do corpo.</p>
+      </div>
+      <div class="goal-card reveal reveal-delay-2">
+        <span class="g-icon">💪</span>
+        <h4>Força</h4>
+        <p>Desenvolvimento de força real, com base técnica e segurança nos movimentos.</p>
+      </div>
+      <div class="goal-card reveal reveal-delay-3">
+        <span class="g-icon">⚡</span>
+        <h4>Condicionamento</h4>
+        <p>Resistência física e disposição para o seu dia a dia dentro e fora da academia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVALIAÇÕES -->
+<section class="section-tight">
+  <div class="wrap">
+    <div class="eyebrow reveal">REPUTAÇÃO</div>
+    <h2 class="section-title reveal">QUEM TREINA, <span>RECOMENDA.</span></h2>
+    <div class="reviews-top reveal">
+      <span class="reviews-score">4,9</span>
+      <div>
+        <div class="stars">★★★★★</div>
+        <div class="reviews-meta">Baseado em mais de 60 avaliações</div>
+      </div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <span>Espaço reservado para depoimento real de aluno.</span>
+        <span class="soon">EM BREVE</span>
+      </div>
+      <div class="testi-card reveal reveal-delay-1">
+        <span>Espaço reservado para depoimento real de aluno.</span>
+        <span class="soon">EM BREVE</span>
+      </div>
+      <div class="testi-card reveal reveal-delay-2">
+        <span>Espaço reservado para depoimento real de aluno.</span>
+        <span class="soon">EM BREVE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section>
+  <div class="wrap">
+    <div class="insta-wrap">
+      <div>
+        <div class="eyebrow reveal">SIGA A MAROMBA</div>
+        <h2 class="section-title reveal">@MAROMBAIMBITUBA<span>2.0</span></h2>
+      </div>
+      <a href="https://instagram.com/marombaimbituba2.0" target="_blank" rel="noopener" class="btn btn-solid reveal">Seguir no Instagram</a>
+    </div>
+    <div class="insta-grid">
+      <div class="insta-item reveal">📷</div>
+      <div class="insta-item reveal reveal-delay-1">📷</div>
+      <div class="insta-item reveal reveal-delay-2">📷</div>
+      <div class="insta-item reveal reveal-delay-3">📷</div>
+    </div>
+    <p style="margin-top:24px;color:var(--grey);font-size:0.85rem;">* Espaço preparado para exibir os posts mais recentes do Instagram automaticamente, quando integrado.</p>
+  </div>
+</section>
+
+<!-- LOCALIZAÇÃO -->
+<section id="localizacao" class="section-tight">
+  <div class="wrap">
+    <div class="eyebrow reveal">ONDE ESTAMOS</div>
+    <h2 class="section-title reveal">VENHA NOS <span>VISITAR</span></h2>
+    <div class="loc-grid">
+      <div class="loc-map reveal"><div class="pin"></div></div>
+      <div class="loc-info reveal reveal-delay-1">
+        <p class="addr">Academia Maromba</p>
+        <p>R. João de Carvalho — Nova Brasília<br>Imbituba – SC, CEP 88780-000</p>
+        <p>📞 (48) 99803-3189</p>
+        <div class="loc-actions">
+          <a class="btn btn-solid" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=R.+Jo%C3%A3o+de+Carvalho,+Nova+Brasília,+Imbituba+-+SC,+88780-000">Como Chegar</a>
+          <a class="btn btn-outline" id="contato" href="tel:+5548998033189">Entrar em Contato</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final-cta">
+  <div class="wrap">
+    <h2 class="display reveal">O MOMENTO DE <span style="color:var(--copper)">COMEÇAR</span> É AGORA.</h2>
+    <p class="reveal reveal-delay-1">Não espere pela motivação. Construa disciplina. Comece hoje a transformação que você procura.</p>
+    <a href="tel:+5548998033189" class="btn btn-solid reveal reveal-delay-2 magnetic">Quero Treinar na Maromba</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo-mark" style="margin-bottom:14px;">
+          <span class="logo-badge">M</span> ACADEMIA <span>MAROMBA</span>
+        </div>
+        <p style="color:var(--grey);font-size:0.9rem;max-width:34ch;">Nova Brasília, Imbituba – SC. Força, disciplina e evolução, todos os dias.</p>
+      </div>
+      <div>
+        <h5>LINKS RÁPIDOS</h5>
+        <a class="flink" href="#inicio">Início</a>
+        <a class="flink" href="#academia">Academia</a>
+        <a class="flink" href="#estrutura">Estrutura</a>
+        <a class="flink" href="#horarios">Horários</a>
+        <a class="flink" href="#localizacao">Localização</a>
+      </div>
+      <div>
+        <h5>CONTATO</h5>
+        <a class="flink" href="tel:+5548998033189">(48) 99803-3189</a>
+        <a class="flink" href="https://instagram.com/marombaimbituba2.0" target="_blank" rel="noopener">@marombaimbituba2.0</a>
+        <a class="flink" href="https://www.google.com/maps/dir/?api=1&destination=R.+Jo%C3%A3o+de+Carvalho,+Nova+Brasília,+Imbituba+-+SC,+88780-000" target="_blank" rel="noopener">Ver no mapa</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Academia Maromba. Todos os direitos reservados.</span>
+      <span>Nova Brasília, Imbituba – SC</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasGSAP = typeof gsap !== 'undefined';
+  if (hasGSAP) gsap.registerPlugin(ScrollTrigger);
+
+  /* ---------- HEADER SCROLL STATE ---------- */
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  /* ---------- MOBILE NAV ---------- */
+  const burger = document.getElementById('burgerBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileClose = document.getElementById('mobileClose');
+  burger.addEventListener('click', () => mobileNav.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileNav.classList.remove('open'));
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileNav.classList.remove('open')));
+
+  /* ---------- GENERIC REVEAL (cena a cena, CSS-driven) ---------- */
+  const revealEls = document.querySelectorAll('.reveal:not(.in)');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  /* ---------- GALLERY MASK REVEAL ---------- */
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const gio = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        gio.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  galleryItems.forEach(el => gio.observe(el));
+
+  if (reduceMotion || !hasGSAP) {
+    // Estado final estático: acessível, sem animação de entrada.
+    document.querySelectorAll('.line-inner').forEach(el => el.style.transform = 'none');
+    document.querySelectorAll('.hero-fx-item').forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
+    document.querySelectorAll('.cine-word h3').forEach(el => { el.style.opacity = 1; el.style.filter='none'; el.style.transform='none'; el.style.color='var(--off)'; });
+    document.querySelectorAll('[data-count-to]').forEach(el => {
+      const to = el.getAttribute('data-count-to');
+      const dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      const suf = el.getAttribute('data-suffix') || '';
+      el.textContent = Number(to).toFixed(dec).replace('.', ',') + suf;
+    });
+    return;
+  }
+
+  /* ==================================================
+     CENA 01 — HERO: abertura cinematográfica sequencial
+     Ordem: marca (já visível no header) → headline linha a linha → texto → botões
+  ================================================== */
+  const heroTl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+  heroTl
+    .to('.line-inner', { y: 0, duration: 1.1, stagger: 0.14 }, 0.25)
+    .to('.hero-fx-item', { opacity: 1, y: 0, duration: 0.9, stagger: 0.15 }, '-=0.5');
+
+  /* Parallax sutil em camadas no hero (background lento, marca média) */
+  gsap.to('.hero-glow', {
+    y: 90, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 }
+  });
+  gsap.to('.hero-mark', {
+    y: 160, rotate: 4, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 }
+  });
+  gsap.to('.hero-content', {
+    y: -40, opacity: 0.4, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 }
+  });
+
+  /* ==================================================
+     CENA 03 — PALAVRAS CINEMATOGRÁFICAS
+     Blur progressivo + escala, sincronizado ao scroll
+  ================================================== */
+  document.querySelectorAll('.cine-word h3').forEach((word) => {
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: word,
+        start: 'top 78%',
+        end: 'top 38%',
+        scrub: 0.8,
+        toggleClass: { targets: word.closest('.cine-word'), className: 'in' }
+      }
+    }).fromTo(word,
+      { filter: 'blur(10px)', scale: 0.88, opacity: 0.25, letterSpacing: '0.12em' },
+      { filter: 'blur(0px)', scale: 1, opacity: 1, letterSpacing: '0.01em', ease: 'power2.out' }
+    );
+  });
+
+  /* ==================================================
+     NÚMEROS — contagem sincronizada ao scroll
+  ================================================== */
+  document.querySelectorAll('[data-count-to]').forEach((el) => {
+    const to = parseFloat(el.getAttribute('data-count-to'));
+    const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+    const suffix = el.getAttribute('data-suffix') || '';
+    const proxy = { val: 0 };
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 88%',
+      once: true,
+      onEnter: () => {
+        gsap.to(proxy, {
+          val: to, duration: 1.6, ease: 'power2.out',
+          onUpdate: () => { el.textContent = proxy.val.toFixed(decimals).replace('.', ',') + suffix; }
+        });
+      }
+    });
+  });
+
+  /* ==================================================
+     BOTÕES MAGNÉTICOS — apenas desktop com ponteiro fino
+  ================================================== */
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (canHover) {
+    document.querySelectorAll('.magnetic').forEach((btn) => {
+      const strength = 14;
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+        const y = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+        gsap.to(btn, { x: x * strength, y: y * strength, duration: 0.5, ease: 'power3.out' });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1,0.4)' });
+      });
+    });
+  }
+
+  ScrollTrigger.refresh();
+})();
+</script>
+
+<!-- ============================================================
+     LOGIN COM GOOGLE (Supabase Auth) + NOTIFICAÇÃO DE NOVO LOGIN
+============================================================= -->
+<script>
+(function () {
+  const cfg = window.MAROMBA_CONFIG || {};
+  const configured = cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY &&
+    !cfg.SUPABASE_URL.includes('SEU-PROJETO');
+
+  if (!configured) {
+    console.warn('[Maromba] Login com Google desativado: configure SUPABASE_URL e SUPABASE_ANON_KEY em window.MAROMBA_CONFIG (veja CONFIGURACAO-LOGIN-GOOGLE.md).');
+    return;
+  }
+  if (!window.supabase || !window.supabase.createClient) {
+    console.error('[Maromba] Biblioteca do Supabase não carregou.');
+    return;
+  }
+
+  const supabase = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+
+  // Chaves usadas só para evitar notificações duplicadas NESTA aba.
+  // A proteção "de verdade" contra duplicidade é feita no servidor (Edge Function).
+  const PENDING_KEY = 'mm_pending_login';   // marcado só quando o usuário clica no botão
+  const NOTIFIED_KEY = 'mm_notified_token'; // access_token já notificado nesta aba
+
+  function initials(name) {
+    return (name || '?').trim().charAt(0).toUpperCase();
+  }
+
+  function renderLoggedOut(widget) {
+    widget.innerHTML =
+      '<button class="btn-google" type="button" data-google-login>' +
+        '<svg viewBox="0 0 48 48" aria-hidden="true">' +
+          '<path fill="#EA4335" d="M24 9.5c3.4 0 6.4 1.2 8.8 3.5l6.6-6.6C35.3 2.4 30 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.7 6C12.1 13 17.6 9.5 24 9.5z"/>' +
+          '<path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.2-.4-4.7H24v9h12.6c-.5 3-2.2 5.5-4.7 7.2l7.3 5.7c4.3-4 6.8-9.9 6.8-17.2z"/>' +
+          '<path fill="#FBBC05" d="M10.3 19.2c-.5 1.5-.8 3.1-.8 4.8s.3 3.3.8 4.8l-7.7 6C1 31.3 0 27.8 0 24s1-7.3 2.6-10.8l7.7 6z"/>' +
+          '<path fill="#34A853" d="M24 48c6 0 11.3-2 15-5.5l-7.3-5.7c-2 1.4-4.6 2.2-7.7 2.2-6.4 0-11.9-3.5-13.7-8.8l-7.7 6C6.5 42.6 14.6 48 24 48z"/>' +
+        '</svg>' +
+        'Continuar com Google' +
+      '</button>';
+    widget.querySelector('[data-google-login]').addEventListener('click', handleLogin);
+  }
+
+  function renderLoggedIn(widget, user) {
+    const meta = user.user_metadata || {};
+    const name = meta.full_name || meta.name || user.email || 'Conta';
+    const avatar = meta.avatar_url || meta.picture || '';
+    const avatarHtml = avatar
+      ? '<img src="' + avatar + '" alt="">'
+      : '<span class="chip-fallback">' + initials(name) + '</span>';
+
+    widget.innerHTML =
+      '<div class="user-chip" data-user-chip tabindex="0">' +
+        avatarHtml +
+        '<span>' + name + '</span>' +
+      '</div>' +
+      '<div class="user-menu" data-user-menu>' +
+        '<button type="button" data-logout>Sair da conta</button>' +
+      '</div>';
+
+    const chip = widget.querySelector('[data-user-chip]');
+    const menu = widget.querySelector('[data-user-menu]');
+    chip.addEventListener('click', () => menu.classList.toggle('open'));
+    widget.querySelector('[data-logout]').addEventListener('click', handleLogout);
+  }
+
+  function renderAll(session) {
+    document.querySelectorAll('[data-auth-widget]').forEach((widget) => {
+      if (session && session.user) renderLoggedIn(widget, session.user);
+      else renderLoggedOut(widget);
+    });
+  }
+
+  // Fecha o menu do usuário ao clicar fora dele.
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('[data-auth-widget]').forEach((widget) => {
+      if (!widget.contains(e.target)) {
+        const menu = widget.querySelector('[data-user-menu]');
+        if (menu) menu.classList.remove('open');
+      }
+    });
+  });
+
+  async function handleLogin() {
+    try {
+      // Marca que o PRÓXIMO "SIGNED_IN" veio de um clique real do usuário
+      // (e não de restauração de sessão ao recarregar a página).
+      sessionStorage.setItem(PENDING_KEY, '1');
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.origin + window.location.pathname }
+      });
+      if (error) throw error;
+    } catch (err) {
+      console.error('[Maromba] Erro ao iniciar login com Google:', err);
+      sessionStorage.removeItem(PENDING_KEY);
+      alert('Não foi possível iniciar o login com Google. Tente novamente em instantes.');
+    }
+  }
+
+  async function handleLogout() {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+    } catch (err) {
+      console.error('[Maromba] Erro ao sair da conta:', err);
+    }
+  }
+
+  async function notifyNewLogin(session) {
+    if (!session || !session.access_token) return;
+    // Evita notificar duas vezes na mesma aba para o mesmo token.
+    if (sessionStorage.getItem(NOTIFIED_KEY) === session.access_token) return;
+    sessionStorage.setItem(NOTIFIED_KEY, session.access_token);
+
+    try {
+      const { error } = await supabase.functions.invoke('notify-login', {
+        body: { method: 'google' }
+      });
+      if (error) console.error('[Maromba] Falha ao enviar notificação de novo login:', error);
+    } catch (err) {
+      console.error('[Maromba] Erro ao chamar a função de notificação:', err);
+    }
+  }
+
+  supabase.auth.onAuthStateChange((event, session) => {
+    renderAll(session);
+
+    if (event === 'SIGNED_IN') {
+      const cameFromRealClick = sessionStorage.getItem(PENDING_KEY);
+      if (cameFromRealClick) {
+        sessionStorage.removeItem(PENDING_KEY);
+        notifyNewLogin(session);
+      }
+      // Se não veio do clique (ex: restauração de sessão ao recarregar a
+      // página), NÃO notifica — evita o e-mail duplicado.
+    }
+
+    if (event === 'SIGNED_OUT') {
+      sessionStorage.removeItem(NOTIFIED_KEY);
+      sessionStorage.removeItem(PENDING_KEY);
+    }
+  });
+
+  // Estado inicial ao carregar a página (restaura sessão sem notificar).
+  supabase.auth.getSession().then(({ data }) => renderAll(data.session));
+})();
+</script>
+
+</body>
+</html>
